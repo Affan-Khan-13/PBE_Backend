@@ -6,6 +6,7 @@ import coachRoute from "./routes/coachRoute";
 import adminRoute from "./routes/adminRoute";
 import connectDb from "./helpers/connectDb";
 import dotenv from "dotenv";
+import { swaggerUi, swaggerSpec } from "./swagger";
 dotenv.config();
 const port = process.env.PORT || "8000";
 
@@ -22,6 +23,8 @@ app.use(express.json());
 app.use("/client", clientRoute);
 app.use("/coach", coachRoute);
 app.use("/admin", adminRoute);
+
+app.use("/api-docs", swaggerUi.serve, swaggerUi.setup(swaggerSpec));
 
 app.get("/", (req: Request, res: Response) => {
   res.send("Server is running succesfully");
